@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Уральский стол — гастрономическая карта Свердловской области</title>
+  <meta name="description" content="Лучшие блюда десяти городов Свердловской области: традиции, климат, рецепты и недорогие кафе со средним чеком." />
+  <link rel="preconnect" href="https://googleapis.com" />
+  <link rel="preconnect" href="https://gstatic.com" crossorigin />
+  <link href="https://googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Prata&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #faf6f0;
+      --surface: #ffffff;
+      --surface-alt: #f2ebe0;
+      --ink: #1f1b18;
+      --muted: #665c52;
+      --accent: #9e3f24;
+      --accent-dark: #7a2e18;
+      --forest: #2c4a3e;
+      --border: #e3d8c8;
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(31, 27, 24, 0.06);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Golos Text', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, .serif {
+      font-family: 'Prata', Georgia, serif;
+      font-weight: 400;
+      line-height: 1.25;
+    }
+
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250, 246, 240, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+      gap: 16px;
+    }
+    .brand {
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: var(--ink);
+    }
+    .brand-title { font-family: 'Prata', serif; font-size: 20px; }
+    .brand-sub { font-size: 12px; color: var(--muted); }
+    .nav-links { display: flex; gap: 22px; flex-wrap: wrap; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* Hero */
+    .hero {
+      padding: 56px 0 48px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 36px;
+      align-items: center;
+    }
+    .badge {
+      display: inline-block;
+      background: var(--surface-alt);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+      border: 1px solid var(--border);
+    }
+    .hero h1 { font-size: clamp(32px, 4.5vw, 52px); margin-bottom: 18px; }
+    .hero p { font-size: 17px; color: var(--muted); margin-bottom: 26px; max-width: 560px; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 32px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: var(--accent-dark); }
+    .btn-outline { background: var(--surface); color: var(--ink); border-color: var(--border); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    .stats {
+      display: flex;
+      gap: 28px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .stat-num { font-family: 'Prata', serif; font-size: 28px; color: var(--accent); }
+    .stat-label { font-size: 13px; color: var(--muted); }
+
+    .hero-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .hero-card img {
+      width: 100%;
+      height: 310px;
+      object-fit: cover;
+      display: block;
+    }
+    .hero-card-body { padding: 18px 22px; }
+    .hero-card-tag { font-size: 12px; font-weight: 600; color: var(--forest); text-transform: uppercase; letter-spacing: 0.05em; }
+    .hero-card-body p { font-size: 14px; color: var(--muted); margin: 6px 0 0; }
+
+    /* Sections */
+    section { padding: 56px 0; }
+    .section-head { margin-bottom: 32px; max-width: 700px; }
+    .section-eyebrow {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 8px;
+    }
+    .section-head h2 { font-size: clamp(26px, 3.5vw, 38px); margin-bottom: 12px; }
+    .section-head p { color: var(--muted); font-size: 16px; }
+
+    /* Climate Grid */
+    .climate-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
+      gap: 20px;
+    }
+    .climate-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .climate-num { font-size: 13px; font-weight: 700; color: var(--accent); }
+    .climate-card p { font-size: 14px; color: var(--muted); }
+    .climate-meta {
+      font-size: 12px;
+      background: var(--surface-alt);
+      padding: 8px 12px;
+      border-radius: 10px;
+      color: var(--ink);
+    }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; }
+    .tag {
+      font-size: 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 3px 10px;
+      border-radius: 999px;
+      color: var(--muted);
+    }
+
+    /* Interactive Map & City Explorer */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .filter-btn {
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      color: var(--ink);
+      transition: all 0.2s;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--forest);
+      color: #fff;
+      border-color: var(--forest);
+    }
+
+    .explorer {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    .city-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px;
+    }
+    .city-btn {
+      text-align: left;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.15s;
+    }
+    .city-btn:hover { background: var(--bg); }
+    .city-btn.active {
+      background: var(--surface-alt);
+      border-color: var(--accent);
+    }
+    .city-btn-name { font-weight: 600; font-size: 15px; color: var(--ink); display: block; }
+    .city-btn-zone { font-size: 12px; color: var(--muted); }
+
+    .city-detail {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+    .city-meta { font-size: 13px; color: var(--accent); font-weight: 600; margin-bottom: 6px; }
+    .city-detail h3 { font-size: 30px; margin-bottom: 6px; }
+    .city-subtitle { font-size: 16px; font-weight: 500; color: var(--forest); margin-bottom: 14px; }
+    .city-desc { color: var(--muted); font-size: 15px; margin-bottom: 24px; }
+
+    /* Dish Cards: IMAGE ON TOP, DESCRIPTION BELOW */
+    .sub-heading {
+      font-family: 'Prata', serif;
+      font-size: 20px;
+      margin: 24px 0 14px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+    }
+    .dishes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .dish-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .dish-img-wrap {
+      width: 100%;
+      height: 195px;
+      background: var(--surface-alt);
+      position: relative;
+      overflow: hidden;
+    }
+    .dish-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .dish-season {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(31, 27, 24, 0.78);
+      color: #fff;
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+    .dish-body {
+      padding: 16px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+    .dish-city-tag {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+    .dish-title {
+      font-family: 'Prata', serif;
+      font-size: 18px;
+      color: var(--ink);
+    }
+    .dish-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* Cafes block */
+    .cafes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 14px;
+    }
+    .cafe-card {
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .cafe-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+    }
